@@ -5,19 +5,6 @@ from . import serializers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 class PageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
@@ -33,3 +20,11 @@ class PageViewSet(viewsets.ReadOnlyModelViewSet):
 class ContentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Content.objects.all()
     serializer_class = serializers.ContentSerializer
+
+    def get_serializer_class(self, *args, **kwargs):
+        serializer_class = super().get_serializer_class()
+        if self.action == 'list':
+            return serializers.ContentSerializer
+        if self.action == 'retrieve':
+            return serializers.ContentDetSerializer
+        return serializer_class

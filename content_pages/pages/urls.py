@@ -10,6 +10,3 @@ router.register('contents', rest_views.ContentViewSet, basename='contents')
 urlpatterns = [
     path('', include(router.urls))
 ]
-# print('router.urls:')
-# for url in router.urls:
-#     print(url)

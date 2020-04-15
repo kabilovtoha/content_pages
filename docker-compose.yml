@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  pages_web:
+    build: .
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+      - ./.env.dev.db
+    ports:
+      - "8000:8000"
+    command: /runserver
+    networks:
+      - pages_network
+
+  postgres:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.dev.db
+    networks:
+      - pages_network
+#    ports:
+#      - "5432:5432"
+
+  redis:
+    image: redis:3.0-alpine
+    volumes:
+      - redis:/data
+    networks:
+      - pages_network
+
+  celery:
+    build: .
+    command: pipenv run celery worker -l info -A config -B
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+      - ./.env.dev.db
+    networks:
+      - pages_network
+
+networks:
+  pages_network:
+    driver: bridge
+
+volumes:
+  postgres_data: {}
+  redis:

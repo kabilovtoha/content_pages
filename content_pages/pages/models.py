@@ -18,6 +18,8 @@ class Post(models.Model):
     def get_page_url(self):
         return f"{settings.BASE_URL}{reverse('pages-list')}{self.id}/"
 
+    def get_contents(self):
+        return self.content_set.all().order_by('id')
 
     def __str__(self):
         return self.title
@@ -58,6 +60,12 @@ class Content(models.Model):
     url = models.URLField('Ссылка', blank=True, null=True)
     counter = models.PositiveIntegerField('Cчетчик просмотров', blank=True, default=0)
     json_attrs = JSONField('Доп. данные', default=dict, blank=True)
+
+    def get_sources(self):
+        return self.source_set.all().order_by('id')
+
+    def get_content_url(self):
+        return f"{settings.BASE_URL}{reverse('contents-list')}{self.id}/"
 
     def __str__(self):
         if self.title:

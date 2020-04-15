@@ -152,3 +152,9 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR("media"))
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
+
+CELERY_BROKER_URL = env.str('REDIS_URL', default='redis:///1')
+CELERY_RESULT_BACKEND = env.str('REDIS_RESULT_URL', default='redis:///2')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
