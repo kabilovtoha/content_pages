@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 
+from config.celery_app import app
+
 from . import models
 from . import serializers
 from . import paginations
@@ -17,6 +19,13 @@ class PageViewSet(viewsets.ReadOnlyModelViewSet):
         if self.action == 'retrieve':
             return serializers.PostDetSerializer
         return serializer_class
+
+    def get_queryset(self, *args, **kwargs):
+        if self.action == 'retrieve':
+            post_id = self.kwargs.get('pk')
+            result = app.send_task('content_pages.pages.tasks.increase_post_content_counters', [post_id])
+        queryset = super(PageViewSet, self).get_queryset()
+        return queryset
 
 class ContentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Content.objects.all()

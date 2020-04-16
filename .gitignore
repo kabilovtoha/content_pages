@@ -144,8 +144,8 @@ gen
 /src/logs/*
 /src/daemons/*
 
-content_pages/static/
-content_pages/static/*
+#content_pages/static/
+#content_pages/static/*
 mongo_volume/*
 postgres_volume/*
 

@@ -6,7 +6,6 @@ set -o nounset
 
 pipenv run python manage.py makemigrations
 pipenv run python manage.py migrate
-pipenv run python manage.py collectstatic
 pipenv run python manage.py loaddata fixtures/mimetypes_data.json
 pipenv run python manage.py loaddata fixtures/dev_users.json
 pipenv run python manage.py runserver 0.0.0.0:8000

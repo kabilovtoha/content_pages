@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  pages_web:
+  runserver:
     build: .
     depends_on:
       - postgres
@@ -12,7 +12,7 @@ services:
       - ./.env.dev.db
     ports:
       - "8000:8000"
-    command: /runserver
+#    command: /runserver
     networks:
       - pages_network
 
@@ -35,7 +35,9 @@ services:
       - pages_network
 
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.celery
     command: pipenv run celery worker -l info -A config -B
     volumes:
       - .:/app
