@@ -1,7 +1,12 @@
 # Как развернуть проект
 ## Для разработки / For development
+#####  Сборка пересборка запуск
 ```sh
 docker-compose up -d --build
+```
+#####  при последующих запусках 
+```sh
+docker-compose up -d runserver
 ```
 ##### Dev superuser:
 - auto cteates from fixtures
