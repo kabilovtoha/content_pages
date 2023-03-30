@@ -10,7 +10,7 @@ pylint = "*"
 [packages]
 django = "*"
 django-environ = "*"
-celery = "==4.3.0"
+celery = "==5.2.2"
 djangorestframework = "==3.11.0"
 django-filter = "*"
 psycopg2 = "==2.8.5"
