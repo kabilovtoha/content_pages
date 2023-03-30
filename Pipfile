@@ -14,7 +14,7 @@ celery = "==4.3.0"
 djangorestframework = "==3.11.0"
 django-filter = "*"
 psycopg2 = "==2.8.5"
-redis = "==3.3.11"
+redis = "==4.5.3"
 
 [requires]
 python_version = "3.7"
